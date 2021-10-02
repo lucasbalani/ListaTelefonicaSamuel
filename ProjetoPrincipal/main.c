@@ -20,8 +20,17 @@ Contatos *ultima;
 
 //função que adiciona um contato na lista
 void adicionar(int pk, char *nome, char *telefone, char *endereco){
+	
+	/*
+		Aqui aloco um espaço em memoria para guardar a struct contatos.
+		
+		o malloc retorna um ponteiro void, por isso precisamos do cast (Contatos*),
+		para converter o ponteiro void em um ponteiro struct contatos.
+	*/
 	Contatos *nova = (Contatos*) malloc(sizeof(Contatos));
 	
+	
+	//Setando os atributos da struct contatos
 	nova->PK = pk;
 	strcpy(nova->nome, nome);
 	strcpy(nova->telefone, telefone);
@@ -41,7 +50,7 @@ void mostrarLista(char* letra){
 	//vai guardar as informaçoes da Lista
 	Contatos *auxiliar = primeira;
 	
-	//Valida se o campo nao está em branco(se estiver mostrará todos os contatos sem filtro)
+	//Valida se o campo nao está em branco(se estiver mostrará todos os contatos, sem o filtro)
 	if (letra == ""){
 		
 		//Este while percorre a lista toda
