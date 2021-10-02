@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <locale.h>
 
 typedef struct contatos Contatos;
 
@@ -12,33 +13,66 @@ struct contatos{
 	Contatos *proximo;//indica o proximo endereco de memoria
 };
 
+//Crio duas variaveis de escopo global indicando que será dois espaços do tipo Struct contatos
 Contatos *primeira;
 Contatos *ultima;
 
+
+//função que adiciona um contato na lista
 void adicionar(int pk, char *nome, char *telefone, char *endereco){
 	Contatos *nova = (Contatos*) malloc(sizeof(Contatos));
 	
 	nova->PK = pk;
-	strcopy(nova->nome, nome);
-	strcopy(nova->telefone, telefone);
-	strcopy(nova->endereco, endereco);
+	strcpy(nova->nome, nome);
+	strcpy(nova->telefone, telefone);
+	strcpy(nova->endereco, endereco);
 
 	nova->proximo = primeira;
+	
+	primeira = nova;
 	
 	
 	
 }
-void mostrarLista(){
+
+//Função responsável por exibir os cadastrados na lista telefonica
+void mostrarLista(char* letra){
 	
 	//vai guardar as informaçoes da Lista
 	Contatos *auxiliar = primeira;
 	
-	while(auxiliar!= NULL){
-		if(auxiliar->nome[0] == 'l' ){
-			printf("[LISTA TELEFONICA]\n [ID %d]\nNOME - %c \nTELEFONE - %c \nENDEREÇO - %c\n\n", auxiliar->PK, auxiliar->nome, auxiliar->telefone, auxiliar->endereco);
+	//Valida se o campo nao está em branco(se estiver mostrará todos os contatos sem filtro)
+	if (letra == ""){
+		
+		//Este while percorre a lista toda
+		while(auxiliar != NULL){
+			printf("[LISTA TELEFONICA]\n[ID %d]\nNOME - %s \nTELEFONE - %s \nENDEREÇO - %s\n\n", auxiliar->PK, auxiliar->nome, auxiliar->telefone, auxiliar->endereco);
+			
+			//aqui vai passar o valor do proximo endereço para o auxiliar (Quando o proximo endereço for null significa que é o ultimo elemento)
+	 		auxiliar = auxiliar->proximo; 
+		}
+	} else {
+		while(auxiliar != NULL){
+				//este if eu testo se o primeiro caractere do nome é igual a letra passada por parametro
+				if(auxiliar->nome[0] == *letra ){
+					printf("[LISTA TELEFONICA]\n[ID %d]\nNOME - %s \nTELEFONE - %s \nENDEREÇO - %s\n\n", auxiliar->PK, auxiliar->nome, auxiliar->telefone, auxiliar->endereco);
+				}
+			
+			//faz a incrementaçao passando o proximo endereço
+	 		auxiliar = auxiliar->proximo; 
 		}
 	}
+	
 }
 int main(int argc, char *argv[]) {
+	setlocale(LC_ALL,"PORTUGUESE");
 	
+	
+	adicionar(0, "Lucas Balani", "988296172", "Alameda domingos f. villas boas, 895 casa 405");
+	adicionar(1, "Lola calypso", "888888888", "Av Henry nestlé, 1001");
+	adicionar(2, "Rodrigo Maia", "888888888", "Lagoinha Nobre 2, 893");
+	
+	mostrarLista("R");
+	
+	return 0;
 }
