@@ -77,11 +77,11 @@ int main(int argc, char *argv[]) {
 	setlocale(LC_ALL,"PORTUGUESE");
 	
 	
-	adicionar(0, "Lucas Balani", "988296172", "Alameda domingos f. villas boas, 895 casa 405");
+	adicionar(0, "Lucas", "999999999", "Vila virginia");
 	adicionar(1, "Lola calypso", "888888888", "Av Henry nestlé, 1001");
 	adicionar(2, "Rodrigo Maia", "888888888", "Lagoinha Nobre 2, 893");
 	
-	mostrarLista("R");
+	mostrarLista("");
 	
 	return 0;
 }
