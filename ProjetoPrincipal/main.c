@@ -73,15 +73,50 @@ void mostrarLista(char* letra){
 	}
 	
 }
+
+Contatos* deletarContato(int pk){
+	Contatos* atual = primeira;
+	Contatos* anterior = NULL;
+	
+	//Testa se a lista é nula
+	if (primeira == NULL){
+		return NULL;
+	}
+	
+	
+	while(atual->PK != pk){
+		if(atual->proximo == NULL){
+			return NULL;
+		} else {
+			anterior = atual;
+			atual = atual->proximo;
+		}
+	}
+	
+	if(atual == primeira){
+		primeira = primeira->proximo;
+	}else{
+		anterior->proximo = atual->proximo;
+	}
+	
+	return atual;
+		
+}
+
 int main(int argc, char *argv[]) {
 	setlocale(LC_ALL,"PORTUGUESE");
 	
-	
+	//Adiciona contato
 	adicionar(0, "Lucas", "999999999", "Vila virginia");
 	adicionar(1, "Lola calypso", "888888888", "Av Henry nestlé, 1001");
 	adicionar(2, "Rodrigo Maia", "888888888", "Lagoinha Nobre 2, 893");
+	adicionar(3, "Claudia Balani", "9999999999", "Av Lagoinha 3233");
 	
-	mostrarLista("");
+	//remove o contato da lista
+	deletarContato(3);
+
+	//mostra a lista (para listar todos os contatos deixe "")
+	mostrarLista("L");
 	
 	return 0;
 }
